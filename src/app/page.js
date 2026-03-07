@@ -66,6 +66,91 @@ function timeAgo(timestamp) {
 }
 
 // ================================================================
+// LOCATION SELECTOR COMPONENT
+// ================================================================
+
+function LocationSelector({ currentLocation, onLocationChange, locations }) {
+    const [isOpen, setIsOpen] = useState(false);
+    const [customLocation, setCustomLocation] = useState('');
+
+    const handleSelect = (location) => {
+        onLocationChange(location);
+        setIsOpen(false);
+    };
+
+    const handleCustomSubmit = (e) => {
+        e.preventDefault();
+        if (customLocation.trim()) {
+            onLocationChange(customLocation.trim());
+            setCustomLocation('');
+            setIsOpen(false);
+        }
+    };
+
+    return (
+        <div className="location-selector" id="location-selector">
+            <button
+                className="location-btn"
+                onClick={() => setIsOpen(!isOpen)}
+                id="location-toggle-btn"
+            >
+                <span className="location-icon">📍</span>
+                <span className="location-text">{currentLocation || 'All Locations'}</span>
+                <span className={`location-arrow ${isOpen ? 'open' : ''}`}>▾</span>
+            </button>
+
+            {isOpen && (
+                <>
+                    <div className="location-backdrop" onClick={() => setIsOpen(false)} />
+                    <div className="location-dropdown" id="location-dropdown">
+                        <div className="location-dropdown-header">
+                            <span className="location-dropdown-title">📍 Select Community Area</span>
+                        </div>
+
+                        {/* Custom location input */}
+                        <form onSubmit={handleCustomSubmit} className="location-custom-form">
+                            <input
+                                className="location-custom-input"
+                                type="text"
+                                placeholder="Enter custom location..."
+                                value={customLocation}
+                                onChange={(e) => setCustomLocation(e.target.value)}
+                                id="custom-location-input"
+                            />
+                            <button type="submit" className="location-custom-btn" disabled={!customLocation.trim()}>Go</button>
+                        </form>
+
+                        {/* Location list */}
+                        <div className="location-list">
+                            <button
+                                className={`location-option ${!currentLocation ? 'active' : ''}`}
+                                onClick={() => handleSelect('')}
+                                id="location-all"
+                            >
+                                <span>🌐</span>
+                                <span>All Locations</span>
+                                {!currentLocation && <span className="location-check">✓</span>}
+                            </button>
+                            {locations.map(loc => (
+                                <button
+                                    key={loc}
+                                    className={`location-option ${currentLocation === loc ? 'active' : ''}`}
+                                    onClick={() => handleSelect(loc)}
+                                >
+                                    <span>📍</span>
+                                    <span>{loc}</span>
+                                    {currentLocation === loc && <span className="location-check">✓</span>}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </>
+            )}
+        </div>
+    );
+}
+
+// ================================================================
 // TOAST NOTIFICATION COMPONENT
 // ================================================================
 
@@ -731,6 +816,10 @@ export default function Home() {
     const [toasts, setToasts] = useState([]);
     const [aiStatus, setAiStatus] = useState('checking');
     const [noiseResults, setNoiseResults] = useState({});
+    const [userLocation, setUserLocation] = useState('');
+
+    // Extract unique locations from alerts for the dropdown
+    const uniqueLocations = [...new Set(alerts.map(a => a.location).filter(Boolean))].sort();
 
     const addToast = useCallback((message, type = 'success') => {
         const id = Date.now();
@@ -848,9 +937,16 @@ export default function Home() {
     };
 
     // Filter displayed alerts
-    const displayedAlerts = filterNoisy
+    let displayedAlerts = filterNoisy
         ? alerts.filter(a => !noiseResults[a.id])
         : alerts;
+
+    // Apply location filter
+    if (userLocation) {
+        displayedAlerts = displayedAlerts.filter(a =>
+            a.location && a.location.toLowerCase().includes(userLocation.toLowerCase())
+        );
+    }
 
     const noiseCount = Object.values(noiseResults).filter(Boolean).length;
 
@@ -867,6 +963,11 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="header-actions">
+                        <LocationSelector
+                            currentLocation={userLocation}
+                            onLocationChange={setUserLocation}
+                            locations={uniqueLocations}
+                        />
                         <div className={`header-status ${aiStatus === 'fallback' ? 'fallback' : ''}`}>
                             <span className="status-dot"></span>
                             {aiStatus === 'ai' ? 'AI Active' : aiStatus === 'checking' ? 'Checking...' : 'Fallback Mode'}
