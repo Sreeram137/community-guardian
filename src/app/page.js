@@ -1,6 +1,226 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+
+// ================================================================
+// ANIMATED CYBER BACKGROUND
+// ================================================================
+
+function CyberBackground() {
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let animationId;
+        let particles = [];
+
+        const resize = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        resize();
+        window.addEventListener('resize', resize);
+
+        // Create particles
+        const PARTICLE_COUNT = 60;
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                radius: Math.random() * 2 + 1,
+                opacity: Math.random() * 0.5 + 0.1,
+                pulseSpeed: Math.random() * 0.02 + 0.005,
+                pulseOffset: Math.random() * Math.PI * 2,
+            });
+        }
+
+        let frame = 0;
+        const animate = () => {
+            frame++;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw connections
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 180) {
+                        const alpha = (1 - dist / 180) * 0.15;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${alpha})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Draw and update particles
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+                const pulse = Math.sin(frame * p.pulseSpeed + p.pulseOffset) * 0.3 + 0.7;
+                const r = p.radius * pulse;
+
+                // Glow
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, r * 3, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(59, 130, 246, ${p.opacity * 0.15 * pulse})`;
+                ctx.fill();
+
+                // Core
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(96, 165, 250, ${p.opacity * pulse})`;
+                ctx.fill();
+            });
+
+            // Scanning line
+            const scanY = (frame * 0.5) % canvas.height;
+            const scanGrad = ctx.createLinearGradient(0, scanY - 30, 0, scanY + 30);
+            scanGrad.addColorStop(0, 'rgba(59, 130, 246, 0)');
+            scanGrad.addColorStop(0.5, 'rgba(59, 130, 246, 0.04)');
+            scanGrad.addColorStop(1, 'rgba(59, 130, 246, 0)');
+            ctx.fillStyle = scanGrad;
+            ctx.fillRect(0, scanY - 30, canvas.width, 60);
+
+            animationId = requestAnimationFrame(animate);
+        };
+        animate();
+
+        return () => {
+            cancelAnimationFrame(animationId);
+            window.removeEventListener('resize', resize);
+        };
+    }, []);
+
+    return <canvas ref={canvasRef} className="cyber-bg-canvas" />;
+}
+
+// ================================================================
+// THREAT LEVEL METER
+// ================================================================
+
+function ThreatLevelMeter({ alerts }) {
+    const criticalCount = alerts.filter(a => a.severity === 'critical').length;
+    const highCount = alerts.filter(a => a.severity === 'high').length;
+    const mediumCount = alerts.filter(a => a.severity === 'medium').length;
+    const score = Math.min(100, criticalCount * 25 + highCount * 12 + mediumCount * 5);
+
+    const getLevel = () => {
+        if (score >= 75) return { label: 'CRITICAL', color: '#ef4444', glow: 'rgba(239,68,68,0.4)' };
+        if (score >= 50) return { label: 'ELEVATED', color: '#f97316', glow: 'rgba(249,115,22,0.4)' };
+        if (score >= 25) return { label: 'GUARDED', color: '#eab308', glow: 'rgba(234,179,8,0.4)' };
+        return { label: 'LOW', color: '#22c55e', glow: 'rgba(34,197,94,0.4)' };
+    };
+    const level = getLevel();
+
+    return (
+        <div className="threat-meter" id="threat-meter">
+            <div className="threat-meter-header">
+                <span className="threat-meter-title">⚡ Community Threat Level</span>
+                <span className="threat-meter-label" style={{ color: level.color }}>{level.label}</span>
+            </div>
+            <div className="threat-meter-bar-bg">
+                <div
+                    className="threat-meter-bar"
+                    style={{
+                        width: `${score}%`,
+                        background: `linear-gradient(90deg, #22c55e, #eab308, ${level.color})`,
+                        boxShadow: `0 0 20px ${level.glow}`,
+                    }}
+                />
+                <div className="threat-meter-ticks">
+                    <span>0</span><span>25</span><span>50</span><span>75</span><span>100</span>
+                </div>
+            </div>
+            <div className="threat-meter-detail">
+                <span>🔴 {criticalCount} Critical</span>
+                <span>🟠 {highCount} High</span>
+                <span>🟡 {mediumCount} Medium</span>
+                <span style={{ marginLeft: 'auto', fontSize: '0.75rem', color: 'var(--text-muted)' }}>Score: {score}/100</span>
+            </div>
+        </div>
+    );
+}
+
+// ================================================================
+// LIVE ACTIVITY FEED
+// ================================================================
+
+const CYBER_EVENTS = [
+    '🔍 Network scan detected from 192.168.1.x',
+    '🛡 Firewall blocked suspicious connection attempt',
+    '📡 New device joined community network',
+    '🔐 SSL certificate verified for local services',
+    '⚠️ Unusual login pattern detected',
+    '✅ Malware signature database updated',
+    '🌐 DNS query anomaly resolved',
+    '📊 Traffic analysis completed — no threats',
+    '🔒 Encrypted tunnel established',
+    '🛡 Phishing URL blocked by community filter',
+    '📡 IoT device firmware check passed',
+    '🔍 Port scan detected and mitigated',
+    '✅ Community VPN connection verified',
+    '⚡ Threat intelligence feed updated',
+    '🔐 Two-factor authentication enforced',
+    '📊 Behavioral analysis: nominal',
+];
+
+function LiveActivityFeed() {
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        // Seed initial events
+        const initial = Array.from({ length: 5 }, (_, i) => ({
+            id: i,
+            text: CYBER_EVENTS[Math.floor(Math.random() * CYBER_EVENTS.length)],
+            time: new Date(Date.now() - (4 - i) * 8000).toLocaleTimeString(),
+        }));
+        setEvents(initial);
+
+        let counter = 5;
+        const interval = setInterval(() => {
+            counter++;
+            setEvents(prev => {
+                const next = [{
+                    id: counter,
+                    text: CYBER_EVENTS[Math.floor(Math.random() * CYBER_EVENTS.length)],
+                    time: new Date().toLocaleTimeString(),
+                }, ...prev].slice(0, 6);
+                return next;
+            });
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <div className="live-feed" id="live-feed">
+            <div className="live-feed-header">
+                <span className="live-feed-dot" />
+                <span className="live-feed-title">Live Network Activity</span>
+            </div>
+            <div className="live-feed-list">
+                {events.map((event, i) => (
+                    <div key={event.id} className={`live-feed-item ${i === 0 ? 'new' : ''}`}>
+                        <span className="live-feed-time">{event.time}</span>
+                        <span className="live-feed-text">{event.text}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
 
 // ================================================================
 // UTILITY HELPERS
@@ -952,6 +1172,9 @@ export default function Home() {
 
     return (
         <>
+            {/* ANIMATED BACKGROUND */}
+            <CyberBackground />
+
             {/* HEADER */}
             <header className="header">
                 <div className="header-inner">
@@ -1018,6 +1241,9 @@ export default function Home() {
                         {/* DASHBOARD TAB */}
                         {activeTab === 'dashboard' && (
                             <>
+                                {/* Threat Level Meter */}
+                                <ThreatLevelMeter alerts={alerts} />
+
                                 {/* Stats Grid */}
                                 <div className="stats-grid">
                                     <div className="stat-card">
@@ -1091,6 +1317,9 @@ export default function Home() {
                                         ))}
                                     </div>
                                 )}
+
+                                {/* Live Activity Feed */}
+                                <LiveActivityFeed />
                             </>
                         )}
 
