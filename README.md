@@ -1,11 +1,12 @@
 # 🛡 Community Guardian — AI-Powered Community Safety & Digital Wellness
 
-> An intelligent community safety platform that aggregates local safety and digital security data, using AI to filter out noise and provide calm, actionable safety digests.
+> An intelligent community safety platform that aggregates local safety and digital security data, uses AI to filter noise from real threats, and delivers calm, actionable safety digests — inspired by how security operations centers protect enterprises, reimagined for everyday communities.
 
-![Community Guardian](https://img.shields.io/badge/Palo%20Alto%20Networks-Case%20Study-blue?style=for-the-badge)
+![Palo Alto Networks](https://img.shields.io/badge/Palo%20Alto%20Networks-Case%20Study-blue?style=for-the-badge)
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)
 ![OpenAI](https://img.shields.io/badge/OpenAI-GPT--3.5-412991?style=flat-square&logo=openai)
 ![Tests](https://img.shields.io/badge/Tests-14%20Passing-brightgreen?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 
 ---
 
@@ -15,7 +16,22 @@
 |---|---|
 | **Candidate Name** | Sriram Bandi |
 | **Scenario Chosen** | 🛡 Scenario 3: Community Safety & Digital Wellness |
-| **Estimated Time Spent** | ~5 hours |
+| **Estimated Time Spent** | ~6 hours |
+| **Repository** | [github.com/Sreeram137/community-guardian](https://github.com/Sreeram137/community-guardian) |
+
+---
+
+## 🎥 Video Presentation
+
+> **[📹 Watch the Demo Video — YouTube](https://youtube.com)** _(Link to be added before submission)_
+
+The 5–7 minute video covers:
+1. 🎯 Problem overview and why this scenario matters
+2. ⚙️ Architecture walkthrough and AI integration design
+3. 🖥 Live demo: Dashboard → Threat Meter → Alert Detail → AI Analysis → Noise Filtering → Live Feed
+4. 🤖 AI vs. Fallback mode demonstration (with and without API key)
+5. 🧪 Test suite execution (14 passing tests)
+6. ⚖️ Responsible AI considerations and tradeoffs
 
 ---
 
@@ -24,19 +40,19 @@
 ### Prerequisites
 - **Node.js** ≥ 18.0.0
 - **npm** ≥ 9.0.0
-- **OpenAI API Key** (optional — app works without it via rule-based fallback)
+- **OpenAI API Key** *(optional — the app works fully without it via rule-based fallback)*
 
-### Run Commands
+### Installation & Run
 
 ```bash
 # 1. Clone the repository
-git clone <repo-url>
+git clone https://github.com/Sreeram137/community-guardian.git
 cd community-guardian
 
 # 2. Install dependencies
 npm install
 
-# 3. Set up environment variables (optional for AI features)
+# 3. (Optional) Set up OpenAI for AI features
 cp .env.example .env.local
 # Edit .env.local and add your OpenAI API key
 
@@ -47,13 +63,13 @@ npm run dev
 # → http://localhost:3000
 ```
 
-### Test Commands
+### Run Tests
 
 ```bash
-# Run all tests (14 tests: happy path + edge cases)
+# Run all 14 tests (happy path + edge cases)
 npm test
 
-# Run tests in watch mode
+# Run in watch mode
 npm run test:watch
 ```
 
@@ -62,35 +78,95 @@ npm run test:watch
 ## 🎯 Problem Understanding
 
 ### The Problem
-As digital and physical security threats become more complex, individuals struggle to keep up with relevant safety information. Information is scattered across news sites and social media, leading to **alert fatigue** or unnecessary anxiety without actionable steps.
+
+As digital and physical security threats grow in complexity, individuals and communities face a critical challenge: **alert fatigue**. Safety information is scattered across social media, local news, government advisories, and neighborhood forums. People either:
+
+- **Miss genuine threats** buried in noise (social media venting, complaints, hearsay)
+- **Become overwhelmed** by unfiltered threat data, leading to anxiety without actionable steps
+- **Cannot distinguish** between verified threats and unverified social media posts
+
+This mirrors a core challenge in enterprise cybersecurity — the same "noise vs. signal" problem that SOC analysts face daily, which is central to **Palo Alto Networks' mission**.
 
 ### My Solution: Community Guardian
-A **"Community Guardian"** platform that:
-1. **Aggregates** community safety alerts from multiple sources
-2. **Filters noise** using AI (OpenAI) or rule-based heuristics to separate venting/complaints from genuine threats
-3. **Provides actionable safety digests** — calm, empowering summaries instead of anxiety-inducing raw feeds
-4. **Generates proactive defense checklists** tailored to specific threat categories
 
-### Why This Scenario?
-I chose Scenario 3 because it aligns directly with **Palo Alto Networks' mission** in cybersecurity. The platform demonstrates core security concepts (threat categorization, noise filtering, proactive defense) in a practical, user-facing application.
+A **community-level Security Operations Center (SOC)** that:
+
+1. **Aggregates** community safety alerts from multiple sources into a unified dashboard
+2. **Filters noise** using AI (OpenAI GPT-3.5) or rule-based NLP to separate venting/complaints from genuine threats
+3. **Categorizes and triages** alerts by type (Cyber Threat, Data Breach, Scam, Theft, Infrastructure, Weather) and severity (Critical → Info)
+4. **Generates proactive defense checklists** — specific, actionable steps tailored to each threat category
+5. **Produces Safety Digests** — calm, empowering summaries instead of anxiety-inducing raw feeds
+6. **Monitors in real-time** with a live network activity feed and community threat level meter
+7. **Filters by location** — users can focus on their specific Buffalo, NY neighborhood
+
+### Why Scenario 3?
+
+This scenario directly aligns with **Palo Alto Networks' cybersecurity mission**:
+- **Threat categorization** → mirrors how PANW products classify threats
+- **Noise-to-signal filtering** → the fundamental SOC challenge
+- **Proactive defense** → actionable checklists echo how PANW provides remediation
+- **AI with fallback** → demonstrates defense-in-depth thinking
 
 ---
 
-## ⚙️ Technical Stack
+## ⚙️ Technical Stack & Architecture
+
+### Technology Choices
 
 | Component | Technology | Rationale |
 |---|---|---|
-| **Framework** | Next.js 16 (App Router) | Server-side API routes + React client in one project |
-| **Frontend** | React 19 | Component-based UI with hooks |
-| **Styling** | Vanilla CSS (Custom Properties) | Maximum control, no dependencies, dark cybersecurity theme |
-| **AI Engine** | OpenAI GPT-3.5-turbo | Fast, cost-effective for categorization/summarization |
-| **Fallback Engine** | Custom Rule-Based NLP | Keyword analysis, heuristics for when AI is unavailable |
-| **Testing** | Jest | 14 tests covering happy path + edge cases |
-| **Data** | Synthetic JSON | 15 curated alerts with noise/signal mix |
+| **Framework** | Next.js 16 (App Router) | Unified frontend + API routes in one project. Server-side rendering for performance. Industry standard. |
+| **Frontend** | React 19 | Component-based architecture with hooks. No external state management — lean and maintainable. |
+| **Styling** | Vanilla CSS (Custom Properties) | Maximum design control, zero CSS framework overhead. 1800+ lines of hand-crafted cybersecurity-themed CSS. |
+| **AI Engine** | OpenAI GPT-3.5-turbo | Fast (~300ms), cost-effective ($0.0015/1K tokens), excellent at structured JSON output for categorization. |
+| **Fallback Engine** | Custom Rule-Based NLP | Zero external deps. Keyword analysis + heuristic scoring. Guarantees the app works without any API key. |
+| **Testing** | Jest | 14 tests (5 happy path + 9 edge cases). Runs in <1 second. |
+| **Data** | Synthetic JSON | 15 curated alerts set in Buffalo, NY with realistic threat mix including noise. |
+| **Animations** | HTML5 Canvas | GPU-accelerated animated network mesh for cybersecurity aesthetic. |
 
----
+### System Architecture
 
-## 🏗 Architecture
+```
+┌──────────────────────────────────────────────────────────┐
+│                   Frontend (React 19)                     │
+│  ┌─────────────────────────────────────────────────────┐ │
+│  │  Cyber Background   │  Threat Level Meter           │ │
+│  │  (Canvas Animation) │  (Real-time score)            │ │
+│  ├─────────────────────┤───────────────────────────────┤ │
+│  │  Dashboard  │  All Alerts  │  Safety Digest         │ │
+│  │  (Stats +   │  (Search +   │  (AI-generated         │ │
+│  │  Recent)    │  Filters)    │  summary)              │ │
+│  ├─────────────────────────────────────────────────────┤ │
+│  │  Location Selector  │  Live Activity Feed           │ │
+│  │  (Buffalo, NY)      │  (Simulated network events)   │ │
+│  └─────────────────────────────────────────────────────┘ │
+└─────────────────┬────────────────────────────────────────┘
+                  │  REST API Calls
+┌─────────────────┴────────────────────────────────────────┐
+│              Next.js API Routes (Server)                  │
+│  GET/POST /api/alerts       │  Validation + CRUD         │
+│  GET/PUT/DELETE /api/alerts/:id  │  Single alert ops     │
+│  POST /api/analyze          │  AI analysis dispatch      │
+└─────────┬───────────────────┴──────────┬─────────────────┘
+          │                              │
+  ┌───────┴──────────┐     ┌────────────┴──────────────┐
+  │   OpenAI API     │     │  Rule-Based Fallback      │
+  │   (Primary)      │     │  (Secondary)              │
+  │                  │     │                            │
+  │  • Noise detect  │ ──▶ │  • Keyword scoring        │
+  │  • Categorize    │fail │  • Pattern matching        │
+  │  • Summarize     │     │  • Heuristic analysis      │
+  │  • Checklists    │     │  • Pre-curated checklists  │
+  └──────────────────┘     └───────────────────────────┘
+          │                              │
+  ┌───────┴──────────────────────────────┴──────────────┐
+  │          Data Layer (In-Memory Store)                │
+  │   synthetic_alerts.json → alertsStore[]             │
+  │   15 alerts × Buffalo, NY locations                 │
+  └─────────────────────────────────────────────────────┘
+```
+
+### Project Structure
 
 ```
 community-guardian/
@@ -104,160 +180,230 @@ community-guardian/
 │   │   │   └── analyze/
 │   │   │       └── route.js          # AI: analyze, checklist, digest
 │   │   ├── layout.js                 # Root layout with SEO metadata
-│   │   ├── globals.css               # Design system (CSS custom properties)
-│   │   └── page.js                   # Main application (Dashboard, Alerts, Digest)
+│   │   ├── globals.css               # 1800+ line design system (CSS custom properties)
+│   │   └── page.js                   # Main application (1400+ lines)
 │   └── lib/
-│       └── aiService.js              # AI + Rule-based fallback engine
+│       └── aiService.js              # AI + Rule-based fallback engine (244 lines)
 ├── data/
-│   └── synthetic_alerts.json         # 15 synthetic community alerts
+│   └── synthetic_alerts.json         # 15 synthetic Buffalo, NY alerts
 ├── __tests__/
 │   └── aiService.test.js             # 14 tests (happy path + edge cases)
 ├── .env.example                      # Environment variable template
+├── DESIGN.md                         # Detailed design documentation
 └── README.md                         # This file
+```
+
+### API Endpoints
+
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/api/alerts` | GET | List alerts with filtering (category, severity, search, status) |
+| `/api/alerts` | POST | Create new alert with server-side validation |
+| `/api/alerts/:id` | GET | Retrieve single alert by ID |
+| `/api/alerts/:id` | PUT | Update alert fields (title, description, status) |
+| `/api/alerts/:id` | DELETE | Delete alert |
+| `/api/analyze` | POST | AI analysis — supports `analyze`, `checklist`, and `digest` actions |
+
+---
+
+## 💡 Key Features & Creativity
+
+### 1. Animated Cybersecurity Background
+A **GPU-accelerated HTML5 Canvas** renders 60 floating network nodes connected by dynamic edges, creating a living "neural network" effect. A scanning beam sweeps across the screen. A subtle CSS grid overlay completes the SOC aesthetic.
+
+### 2. Community Threat Level Meter
+A **real-time threat gauge** calculates a 0–100 threat score based on alert severities:
+- `Critical × 25 + High × 12 + Medium × 5`
+- Color-coded: 🟢 LOW → 🟡 GUARDED → 🟠 ELEVATED → 🔴 CRITICAL
+- Animated gradient bar with severity breakdown
+
+### 3. Live Network Activity Feed
+A **simulated real-time feed** shows cybersecurity events (firewall blocks, scans, VPN connections) updating every 5 seconds with slide-in animations. Gives the app a "live operations center" feel.
+
+### 4. AI-Powered Noise Filtering
+Dual-engine noise detection:
+- **AI Mode**: GPT-3.5-turbo analyzes text semantics with structured JSON output
+- **Fallback Mode**: Keyword scoring + pattern analysis (punctuation, CAPS ratio, text length)
+- Noise alerts are **dimmed, not hidden** — transparency and user control
+
+### 5. Proactive Defense Checklists
+For each alert, the system generates **5 actionable defense steps**:
+- AI Mode: Context-specific steps generated by GPT
+- Fallback Mode: Expert-curated checklists per category (cyber, scam, theft, etc.)
+
+### 6. Safety Digest
+An AI-generated **calm, empowering summary** of all alerts:
+- Critical item count, top concern categories
+- Reassuring overall assessment
+- Clear indication of AI vs. rule-based generation
+
+### 7. Location Selector
+Filter alerts by **real Buffalo, NY neighborhoods** (Elmwood Village, Allentown, Delaware Park, etc.) with a glassmorphism dropdown and custom location input.
+
+### 8. Full CRUD Operations
+Create → Read → Update → Delete → Search → Filter by category, severity, location, and text.
+
+---
+
+## 🤖 AI Integration — Deep Dive
+
+### Three AI Capabilities
+
+| Capability | Input | Output | Use Case |
+|---|---|---|---|
+| **Noise Detection** | Alert text | `isNoise`, `category`, `severity`, `summary`, `confidence` | Separate venting from real threats |
+| **Defense Checklist** | Alert category + context | 5 actionable steps | Empower users with concrete actions |
+| **Safety Digest** | All alerts array | Calm empowering summary | Daily safety snapshot |
+
+### Fallback Architecture (Defense-in-Depth)
+
+```
+User Request → Try OpenAI API
+                ├── ✅ Success → Return AI response (method: "ai")
+                └── ❌ Failure → Run Rule-Based Engine
+                                  ├── Noise Detection: 15 noise keywords vs 21 signal keywords
+                                  ├── Categorization: 7 keyword dictionaries
+                                  ├── Summarization: Sentence extraction + truncation
+                                  └── Checklists: Expert-curated per category
+                                  → Return response (method: "rule-based" + reason)
+```
+
+**Noise Detection Algorithm (Fallback):**
+1. Score against 15 noise keywords (+1 each): "omg", "annoying", "terrible", etc.
+2. Score against 21 actionable keywords (+2 each): "breach", "phishing", "alert", etc.
+3. Penalize excessive punctuation (>3 exclamation marks = +2 noise)
+4. Penalize high CAPS ratio (>30% = +1 noise)
+5. Penalize very short texts with no signal keywords
+6. Decision: `isNoise = noiseScore > signalScore`
+
+### Transparency & Trust
+- **Header badge**: 🟢 "AI Active" or 🟡 "Fallback Mode"
+- **Per-analysis labels**: "🤖 AI Analysis" or "⚙️ Rule-Based Analysis"
+- **Fallback reason**: Shown in footer (e.g., "No API key configured")
+
+---
+
+## 🛠 Prototype Quality
+
+### What Works
+
+| Feature | Status | Notes |
+|---|---|---|
+| Dashboard with stats | ✅ Complete | 4 stat cards with animated glow effects |
+| Threat Level Meter | ✅ Complete | Real-time scoring with animated gradient bar |
+| Alert CRUD | ✅ Complete | Create, Read, Update, Delete with modal form |
+| Search & Filters | ✅ Complete | Text search + category + severity + noise toggle |
+| Location Filtering | ✅ Complete | 13 Buffalo, NY neighborhoods |
+| AI Noise Detection | ✅ Complete | OpenAI with rule-based fallback |
+| Defense Checklists | ✅ Complete | AI-generated or pre-curated per category |
+| Safety Digest | ✅ Complete | AI or rule-based community summary |
+| Live Activity Feed | ✅ Complete | Real-time simulated cyber events |
+| Animated Background | ✅ Complete | Canvas network mesh + scan line |
+| 14 Automated Tests | ✅ Complete | Jest: 5 happy path + 9 edge cases |
+
+### Test Results
+
+```
+PASS  __tests__/aiService.test.js
+ AI Service - Rule-Based Fallback
+   Happy Path
+     ✓ should identify actionable alert as NOT noise
+     ✓ should identify venting/noise as noise
+     ✓ should categorize phishing text as cyber_threat
+     ✓ should generate non-empty summary
+     ✓ should return defense checklist for known category
+   Edge Cases
+     ✓ should handle empty string without crashing
+     ✓ should handle symbols-only input gracefully
+     ✓ should handle extremely long text without crashing
+     ✓ should handle unknown category in getDefenseChecklistFallback
+     ✓ should handle empty alerts array in generateDigestFallback
+     ✓ should correctly classify mixed noise+signal text by dominant signal
+     ✓ should handle unknown category in formatCategoryName
+     ✓ should return 0 for unknown severity in getSeverityWeight
+     ✓ should handle text with excessive punctuation
+
+Test Suites: 1 passed, 1 total
+Tests:       14 passed, 14 total
 ```
 
 ---
 
-## ✅ Requirements Checklist
+## ⚖️ Responsible AI
 
-### 1. Core Flow (Create + View + Update + Filter/Search)
-- ✅ **Create**: "Report Alert" modal with full form validation
-- ✅ **View**: Dashboard overview, full alert list, detailed alert view
-- ✅ **Update**: Edit alert title/description from detail view
-- ✅ **Search/Filter**: Text search + category filter + severity filter + noise toggle
+### Ethical Considerations
 
-### 2. AI Integration + Fallback
-- ✅ **AI**: OpenAI GPT-3.5-turbo for noise detection, categorization, summarization, and defense checklist generation
-- ✅ **Fallback**: Complete rule-based engine using keyword analysis and heuristics
-- ✅ **Transparency**: UI clearly indicates whether AI or fallback is active (header status badge + per-analysis labels)
-- ✅ **Graceful degradation**: App works 100% without an API key
+| Principle | Implementation |
+|---|---|
+| **Transparency** | Users always see whether AI or rules analyzed each alert. Method and confidence displayed. |
+| **User Control** | Noise filtering is a toggle — users see dimmed noise alerts and can show/hide them freely. |
+| **No Real Data** | Only synthetic data used. No scraping, no real personal information. |
+| **Graceful Degradation** | App works 100% without OpenAI. Fallback engine provides comparable analysis with honest confidence scores. |
+| **No Automated Decisions** | AI provides *analysis and recommendations*, never takes action on the user's behalf. |
+| **Bias Awareness** | Keyword-based fallback may have cultural bias in "noise" classification. AI mode provides more nuanced analysis. |
+| **Security** | API keys in `.env.local` (gitignored). No keys committed. Server-side validation on all inputs. |
 
-### 3. Basic Quality
-- ✅ **Input validation**: Client-side + server-side validation on all forms
-- ✅ **Error messages**: Clear validation errors, toast notifications for success/failure
-- ✅ **14 tests**: 5 happy path + 9 edge cases (empty input, extreme length, unknown categories, mixed signals, etc.)
+### Limitations Acknowledged
 
-### 4. Data Safety
-- ✅ **Synthetic data only**: 15 hand-crafted alerts in `data/synthetic_alerts.json`
-- ✅ **No live scraping**: All data is local
+1. **In-memory data store** — resets on server restart (acceptable for prototype; would use PostgreSQL in production)
+2. **Sequential AI calls** — noise analysis calls are not batched (would optimize with Promise.all in production)
+3. **No pagination** — fine for 15 alerts, would need pagination for 1000+
+4. **Keyword-based fallback** — less nuanced than LLM analysis; may misclassify ambiguous text
+5. **No user authentication** — all users see the same data (would add auth + personalization in production)
+6. **Simulated live feed** — network activity events are simulated, not from real monitoring
 
-### 5. Security
-- ✅ **No committed API keys**: Using `.env.local` (gitignored)
-- ✅ **`.env.example`** provided with placeholder values
+### AI Disclosure
 
----
-
-## 🤖 AI Features Deep Dive
-
-### Noise-to-Signal Filtering
-The core AI feature analyzes each alert to determine if it's **actionable signal** or **noise/venting**.
-
-**AI Mode** (OpenAI available):
-- Sends alert text to GPT-3.5-turbo with a structured prompt
-- Returns: `isNoise`, `category`, `severity`, `summary`, `confidence`
-
-**Fallback Mode** (No API key / API error):
-- Counts noise keywords (omg, lol, annoying, etc.) vs actionable keywords (breach, phishing, alert, etc.)
-- Analyzes text patterns (excessive punctuation, CAPS ratio)
-- Assigns category via keyword matching against 7 categories
-
-### Proactive Defense Checklists
-For each alert, the system generates a **5-step actionable defense checklist**:
-- **AI Mode**: GPT generates context-specific steps based on the alert
-- **Fallback Mode**: Pre-curated expert checklists for each category (cyber, scam, theft, etc.)
-
-### Safety Digest
-Aggregates all verified alerts into a **calm, empowering summary**:
-- Counts critical items needing attention
-- Identifies top concern categories
-- Provides reassuring overall assessment
+| Question | Answer |
+|---|---|
+| Did you use AI tools? | Yes — GitHub Copilot and Gemini for code scaffolding, iteration, and documentation |
+| How did you verify? | Manual code review, running the app, writing comprehensive tests, visual QA in browser |
+| Example of rejected suggestion | AI suggested Redux for state management. Rejected — React's built-in `useState`/`useCallback` is sufficient for this prototype's scope, keeping the codebase lean. |
 
 ---
 
 ## 🎨 Design Decisions
 
-### Dark Cybersecurity Theme
-- Color palette inspired by security operations centers
-- High contrast for readability in extended use
-- Severity-colored indicators (red=critical, orange=high, yellow=medium, green=low)
-
-### Noise Filtering UX
-- Noise alerts are visually dimmed with dashed borders (not hidden by default)
-- Toggle allows users to show/hide noise — gives users control
-- Each analysis shows whether AI or rules were used (transparency)
+### Cybersecurity Operations Center Aesthetic
+- Dark theme with navy/midnight primary (`#0a0e1a`)
+- Accent palette: Blue (`#3b82f6`) + Purple (`#8b5cf6`) gradients
+- Animated canvas background with network mesh visualization
+- Cyber grid overlay, scan line effects, glowing borders
+- Monospace timestamps in the live feed
 
 ### Empowering, Not Alarming
 - Safety Digest provides calm summaries, not raw threat feeds
 - Defense checklists give users concrete actions, reducing anxiety
 - Verified vs. unverified status helps users assess information quality
+- Noise alerts are dimmed, not hidden — transparency and control
 
----
-
-## 🔮 Future Enhancements
-
-If given more time, I would build:
-
-1. **Real-time alerts** via WebSocket/Server-Sent Events
-2. **Location-based filtering** with geocoding and map visualization
-3. **Safe Circles** — encrypted group sharing for emergencies
-4. **User authentication** and personalized alert preferences
-5. **Push notifications** for critical severity alerts
-6. **Historical trend analysis** — identify patterns over weeks/months
-7. **Database persistence** (PostgreSQL/MongoDB instead of in-memory)
-8. **Dark/Light theme toggle** with system preference detection
-9. **Mobile PWA** — installable app with offline support
-10. **Community voting** — users can upvote/downvote alert validity
-
----
-
-## 🤖 AI Disclosure
-
-| Question | Answer |
-|---|---|
-| Did you use an AI assistant? | Yes — GitHub Copilot and Gemini for code scaffolding and documentation |
-| How did you verify suggestions? | Manual code review, running the app, and writing comprehensive tests |
-| Example of rejected suggestion | AI suggested using a heavyweight state management library (Redux). I rejected this because React's built-in `useState`/`useCallback` hooks are sufficient for this prototype's scope, keeping the codebase lean and maintainable. |
+### Progressive Disclosure
+Information is layered: Dashboard stats → Alert cards → Full detail with AI analysis. Users dive as deep as they need without being overwhelmed.
 
 ---
 
 ## ⚖️ Tradeoffs & Prioritization
 
-### What I cut to stay within 4-6 hours:
-- **Database persistence**: Used in-memory store (resets on server restart). Acceptable for prototype.
-- **Authentication**: No user accounts. Focus was on core safety features.
-- **Real-time updates**: Polling-based instead of WebSocket.
-- **Map visualization**: Location is text-only in this version.
-- **Comprehensive E2E tests**: Focused on unit tests for the AI engine.
+### What I Cut (Time Constraints)
+| Feature | Reason |
+|---|---|
+| Database persistence | In-memory is sufficient for prototype demo |
+| User authentication | Focus was on core safety + AI features |
+| Real-time WebSocket | Polling + simulated feed demonstrates the concept |
+| Map visualization | Location filtering covers the use case for now |
+| E2E tests | Focused unit tests on the most critical module (AI engine) |
 
-### What I would build next:
-1. Database persistence (PostgreSQL)
-2. User authentication & preferences
-3. WebSocket real-time updates
-4. Map-based alert visualization
-5. Mobile-responsive PWA
-
-### Known limitations:
-- In-memory data store resets on server restart
-- Noise analysis makes sequential API calls (could batch for performance)
-- No pagination on alert list (fine for 15 items, not for 1000+)
-- OpenAI fallback is keyword-based (less nuanced than LLM analysis)
-
----
-
-## 🎥 Video Presentation
-
-> [Video Link — YouTube/Vimeo] _(To be added before submission)_
-
-The 5-7 minute video covers:
-1. Problem overview and solution design
-2. Live demo: Dashboard → Alert detail → AI analysis → Noise filtering
-3. Technical stack walkthrough
-4. AI integration with fallback demonstration
-5. Test suite execution
-6. Key learnings and future enhancements
+### What I'd Build Next
+1. PostgreSQL/MongoDB persistence with migrations
+2. User accounts + personalized alert preferences
+3. WebSocket real-time updates + push notifications
+4. Interactive map with geocoded alert pins
+5. Community voting (upvote/downvote alert validity)
+6. Mobile PWA with offline support
+7. Historical trend analysis over weeks/months
 
 ---
 
 ## 📜 License
 
-MIT — Built for Palo Alto Networks Case Study Challenge
+MIT — Built for the Palo Alto Networks New Grad SWE Case Study Challenge
