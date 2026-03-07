@@ -1,0 +1,16 @@
+{
+  "name": "community-guardian",
+  "version": "1.0.0",
+  "description": "Community Guardian - AI-Powered Community Safety & Digital Wellness Platform",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest --verbose",
+    "test:watch": "jest --watch"
+  },
+  "keywords": ["community-safety", "digital-wellness", "ai", "palo-alto-networks"],
+  "author": "Sriram Bandi",
+  "license": "MIT"
+}

@@ -1,0 +1,266 @@
+[
+    {
+        "id": "alert-001",
+        "title": "Suspicious phishing emails targeting local businesses",
+        "description": "Multiple small businesses on Main Street reported receiving phishing emails impersonating the local Chamber of Commerce. The emails contain malicious links asking for banking credentials. At least 5 businesses have been targeted in the past 48 hours.",
+        "category": "cyber_threat",
+        "severity": "high",
+        "source": "Community Report",
+        "location": "Downtown - Main Street District",
+        "timestamp": "2026-03-06T14:30:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "phishing",
+            "email",
+            "business",
+            "credentials"
+        ]
+    },
+    {
+        "id": "alert-002",
+        "title": "Street light outage on Oak Avenue",
+        "description": "Several street lights on Oak Avenue between 3rd and 7th street have been reported as non-functional for the past three nights. Residents have expressed concern about pedestrian safety during evening hours.",
+        "category": "infrastructure",
+        "severity": "medium",
+        "source": "Neighborhood Watch",
+        "location": "Oak Avenue, 3rd-7th Street",
+        "timestamp": "2026-03-06T09:15:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "street-lights",
+            "pedestrian-safety",
+            "infrastructure"
+        ]
+    },
+    {
+        "id": "alert-003",
+        "title": "Data breach at regional healthcare provider",
+        "description": "Regional Medical Group announced a data breach affecting approximately 12,000 patients. Exposed data may include names, dates of birth, and insurance information. The breach occurred through a compromised third-party vendor system.",
+        "category": "data_breach",
+        "severity": "critical",
+        "source": "Official Announcement",
+        "location": "Regional - All Districts",
+        "timestamp": "2026-03-05T18:00:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "data-breach",
+            "healthcare",
+            "personal-data",
+            "vendor"
+        ]
+    },
+    {
+        "id": "alert-004",
+        "title": "Increased package theft reports in Riverside neighborhood",
+        "description": "Over the past two weeks, 15 incidents of package theft have been reported in the Riverside neighborhood. Most incidents occur between 2-5 PM on weekdays. Ring camera footage shows a recurring white van in the area.",
+        "category": "theft",
+        "severity": "medium",
+        "source": "Police Blotter",
+        "location": "Riverside Neighborhood",
+        "timestamp": "2026-03-06T11:45:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "package-theft",
+            "residential",
+            "recurring"
+        ]
+    },
+    {
+        "id": "alert-005",
+        "title": "Someone's dog keeps barking all night",
+        "description": "OMG I can't sleep because of this annoying dog on Elm Street!!! It barks ALL NIGHT. This is ridiculous and nobody does anything about it. I'm so tired of this neighborhood. Moving out ASAP!!!",
+        "category": "noise",
+        "severity": "low",
+        "source": "Social Media",
+        "location": "Elm Street",
+        "timestamp": "2026-03-06T03:22:00Z",
+        "status": "unverified",
+        "actionable": false,
+        "tags": [
+            "noise",
+            "complaint",
+            "venting"
+        ]
+    },
+    {
+        "id": "alert-006",
+        "title": "New ransomware variant targeting home networks",
+        "description": "Security researchers have identified a new ransomware strain called 'HomeLocker' that specifically targets consumer-grade routers with default configurations. The malware spreads through compromised IoT devices and encrypts connected NAS drives. Users with default router passwords are most at risk.",
+        "category": "cyber_threat",
+        "severity": "critical",
+        "source": "Security Advisory",
+        "location": "Regional - All Districts",
+        "timestamp": "2026-03-05T10:00:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "ransomware",
+            "router",
+            "IoT",
+            "home-network"
+        ]
+    },
+    {
+        "id": "alert-007",
+        "title": "Water main break advisory - boil water notice",
+        "description": "Due to a water main break at the intersection of Pine and 5th, residents in the affected area should boil water before consumption until further notice. Repairs are expected to take 24-48 hours. The city has set up free water distribution at the community center.",
+        "category": "infrastructure",
+        "severity": "high",
+        "source": "City Government",
+        "location": "Pine St & 5th Ave Area",
+        "timestamp": "2026-03-06T16:30:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "water",
+            "boil-notice",
+            "infrastructure",
+            "health"
+        ]
+    },
+    {
+        "id": "alert-008",
+        "title": "This town is going downhill fast",
+        "description": "Everything is terrible here. Crime is up, schools are bad, and my neighbor is annoying. Can't believe I have to live here. When will the city council do something??? Taxes keep going up and services keep getting worse. Total disaster.",
+        "category": "general",
+        "severity": "low",
+        "source": "Social Media",
+        "location": "General",
+        "timestamp": "2026-03-06T08:12:00Z",
+        "status": "unverified",
+        "actionable": false,
+        "tags": [
+            "venting",
+            "general-complaint",
+            "opinion"
+        ]
+    },
+    {
+        "id": "alert-009",
+        "title": "Free community CPR training this Saturday",
+        "description": "The local fire department is offering free CPR and first aid training at the community center this Saturday from 9 AM to 1 PM. Registration is required and spots are limited to 30 participants. Contact the fire department or register online.",
+        "category": "community_event",
+        "severity": "info",
+        "source": "Fire Department",
+        "location": "Community Center, 200 Center Ave",
+        "timestamp": "2026-03-04T12:00:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "training",
+            "CPR",
+            "community-event",
+            "safety"
+        ]
+    },
+    {
+        "id": "alert-010",
+        "title": "Scam calls impersonating IRS reported in area",
+        "description": "Multiple residents have reported receiving phone calls from individuals claiming to be IRS agents demanding immediate payment via gift cards. The callers threaten arrest if payment is not made. The IRS confirms these are scams and reminds the public that the IRS will never demand immediate payment over the phone.",
+        "category": "scam",
+        "severity": "high",
+        "source": "Community Report",
+        "location": "Regional - All Districts",
+        "timestamp": "2026-03-05T14:20:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "scam",
+            "phone",
+            "IRS",
+            "impersonation"
+        ]
+    },
+    {
+        "id": "alert-011",
+        "title": "Vehicle break-ins near Maple Park",
+        "description": "Police report a series of vehicle break-ins in the Maple Park parking lot over the past weekend. 8 vehicles were targeted, with thieves primarily stealing electronics and bags left visible in cars. Police recommend not leaving valuables in vehicles.",
+        "category": "theft",
+        "severity": "medium",
+        "source": "Police Blotter",
+        "location": "Maple Park Parking Lot",
+        "timestamp": "2026-03-04T17:30:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "vehicle-breakin",
+            "theft",
+            "parking"
+        ]
+    },
+    {
+        "id": "alert-012",
+        "title": "WiFi at the coffee shop is so slow today",
+        "description": "Went to Daily Grind coffee shop and the wifi is impossibly slow. Can't even load a webpage. This is unacceptable for a place that charges $7 for a latte. Maybe I'll go to Starbucks instead. UPDATE: turns out my laptop was the problem lol",
+        "category": "general",
+        "severity": "low",
+        "source": "Social Media",
+        "location": "Daily Grind Coffee Shop",
+        "timestamp": "2026-03-06T10:45:00Z",
+        "status": "unverified",
+        "actionable": false,
+        "tags": [
+            "wifi",
+            "complaint",
+            "irrelevant"
+        ]
+    },
+    {
+        "id": "alert-013",
+        "title": "Elderly resident scam alert - fake utility workers",
+        "description": "Two individuals posing as utility workers have been going door-to-door in the Sunset Hills senior community. They claim to need access to check meters but instead case homes for valuables. One resident reported a missing jewelry box after their visit. Residents should demand official ID and call the utility company to verify.",
+        "category": "scam",
+        "severity": "critical",
+        "source": "Police Advisory",
+        "location": "Sunset Hills Senior Community",
+        "timestamp": "2026-03-06T13:00:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "scam",
+            "elderly",
+            "impersonation",
+            "door-to-door"
+        ]
+    },
+    {
+        "id": "alert-014",
+        "title": "Public WiFi vulnerability at community library",
+        "description": "A security audit revealed that the public WiFi network at the Oakdale Community Library has been configured without proper network isolation. This means users on the same network could potentially intercept each other's unencrypted traffic. The library has been notified and plans to update their network configuration by end of week.",
+        "category": "cyber_threat",
+        "severity": "medium",
+        "source": "Security Research",
+        "location": "Oakdale Community Library",
+        "timestamp": "2026-03-05T09:30:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "wifi",
+            "library",
+            "network-security",
+            "public-wifi"
+        ]
+    },
+    {
+        "id": "alert-015",
+        "title": "Emergency weather alert - flash flood warning",
+        "description": "The National Weather Service has issued a flash flood warning for low-lying areas near Cedar Creek through tomorrow afternoon. Residents in flood-prone zones should move to higher ground if water rises. Avoid driving through flooded roads. Emergency shelters available at Lincoln High School.",
+        "category": "weather",
+        "severity": "critical",
+        "source": "National Weather Service",
+        "location": "Cedar Creek Basin Area",
+        "timestamp": "2026-03-06T20:00:00Z",
+        "status": "verified",
+        "actionable": true,
+        "tags": [
+            "weather",
+            "flood",
+            "emergency",
+            "evacuation"
+        ]
+    }
+]
