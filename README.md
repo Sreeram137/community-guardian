@@ -21,9 +21,9 @@
 
 ## 🎥 Video Demo
 
-> 📹 **[Watch the walkthrough on YouTube →](https://youtube.com)** *(link coming before deadline)*
+> 📹 **[Watch the walkthrough on YouTube →](https://youtu.be/UvShu5IO4UE?si=Sx9KS0WBdvGgrb67)**
 
-Covers: problem overview → architecture → live demo → AI vs fallback → tests → tradeoffs
+Covers: dashboard overview → report an alert → AI analysis → noise filtering → safety digest → architecture
 
 ---
 
