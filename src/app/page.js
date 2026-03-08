@@ -1133,7 +1133,7 @@ export default function Home() {
                         <div className="header-logo">📡</div>
                         <div>
                             <div className="header-title">SafeSignal</div>
-                            <div className="header-subtitle">AI-Powered Safety & Digital Wellness</div>
+                            <div className="header-subtitle">Signal Over Noise</div>
                         </div>
                     </div>
                     <div className="header-actions">
