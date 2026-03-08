@@ -1130,9 +1130,9 @@ export default function Home() {
             <header className="header">
                 <div className="header-inner">
                     <div className="header-brand">
-                        <div className="header-logo">🛡</div>
+                        <div className="header-logo">📡</div>
                         <div>
-                            <div className="header-title">Community Guardian</div>
+                            <div className="header-title">SafeSignal</div>
                             <div className="header-subtitle">AI-Powered Safety & Digital Wellness</div>
                         </div>
                     </div>

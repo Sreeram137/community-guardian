@@ -1,4 +1,4 @@
-# 🛡️ Community Guardian
+# 🛡️ SafeSignal
 
 **An AI-powered community safety dashboard that cuts through the noise and gives people what they actually need — clear alerts, practical defense steps, and a calm summary of what's happening around them.**
 
@@ -30,8 +30,8 @@ Covers: problem overview → architecture → live demo → AI vs fallback → t
 ## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/Sreeram137/community-guardian.git
-cd community-guardian
+git clone https://github.com/Sreeram137/safe-signal.git
+cd safe-signal
 npm install
 npm run dev
 # → http://localhost:3000
@@ -60,7 +60,7 @@ This is basically the same challenge security operations centers deal with — s
 
 ## 💡 The Solution
 
-Community Guardian works like a neighborhood-level SOC:
+SafeSignal works like a neighborhood-level SOC:
 
 | What it does | How |
 |---|---|
@@ -116,7 +116,7 @@ Community Guardian works like a neighborhood-level SOC:
 ### 📂 Project Structure
 
 ```
-community-guardian/
+safe-signal/
 ├── src/app/
 │   ├── page.js               → main app (~1400 lines)
 │   ├── globals.css            → design system (~1800 lines)

@@ -1,0 +1,41 @@
+Hey, I'm Sriram Bandi, and this is SafeSignal — an AI-powered community safety dashboard I built for the case study challenge. Let me walk you through what it does and how I built it.
+
+So the problem I'm solving is alert fatigue. Safety information is scattered across social media, news, neighborhood apps — and people either miss real threats because they're buried in noise, or they get overwhelmed by everything and don't know what to actually do. I wanted to build something that filters the noise and gives people clear, actionable information.
+
+SafeSignal works like a neighborhood-level security operations center. It pulls in community alerts, uses AI to figure out which ones are real threats versus people just venting online, and then gives you practical defense steps you can take.
+
+Let me show you the tech stack. I built this with Next.js 16 for the framework, React 19 on the frontend, vanilla CSS for all the styling — about 1800 lines — and OpenAI GPT-3.5 for the AI features. The important thing is that the app also has a complete rule-based fallback engine, so it works fully without any API key.
+
+Now let me show you the live app. This is the dashboard. You can see the animated cyber background — that's a Canvas-based network mesh with 60 floating particles. At the top there's the threat level meter, which calculates a real-time score based on alert severities. Right now it's showing critical because we have several high-severity alerts.
+
+Below that are the stat cards — total alerts, critical count, verified count, and how many noise alerts were filtered. These have a glow effect when you hover over them.
+
+Let me scroll down. Here are the recent alerts, sorted by severity. Each card has a color-coded border — red for critical, orange for high, yellow for medium, green for low. You can see the location, source, and verification status for each one.
+
+Down here is the live activity feed. It simulates network events updating every 5 seconds — things like firewall blocks, DNS queries, VPN connections. It adds that real-time operations center feel.
+
+Let me click on an alert to see the detail view. Here you can see the full description, and when you click analyze, the AI examines the text and tells you whether it's noise or a real threat. It shows the confidence score and which method was used — in this case it's using the rule-based fallback because I don't have an API key configured right now, which is exactly how it should work.
+
+Below the analysis there's the defense checklist — five specific steps you can take to protect yourself. These are tailored to the alert category. For a cyber threat, you'd see things like changing default passwords, enabling two-factor authentication, and updating firmware.
+
+Now let me show you the noise filtering. If I toggle on the noise filter, you can see some alerts get dimmed out — those are the ones the system classified as venting or complaints. Things like someone complaining about their neighbor's dog or ranting about WiFi. They're not hidden, just dimmed. The user has full control.
+
+Let me switch to the All Alerts tab. Here you can search by text, and filter by category and severity. If I type phishing, it filters down to relevant alerts. I can also filter by just critical severity to see what needs immediate attention.
+
+There's also a location filter. All 15 alerts are set in real Buffalo, New York neighborhoods. I can filter by Elmwood Village or Delaware Park to see only what's relevant to my area.
+
+Let me create a new alert. I'll click Report Alert. The form has client-side and server-side validation — title needs at least 5 characters, description at least 10. I can pick a category, severity, and location. When I submit, it appears in the list right away.
+
+Now let me show you the Safety Digest tab. This generates a calm, empowering summary of all community alerts. It counts critical items, identifies top concern categories, and gives a reassuring overall assessment. The key word is empowering — not scary.
+
+Let me talk about the AI architecture for a moment. There are three AI capabilities: noise detection, defense checklists, and the safety digest. Each one tries OpenAI first, and if that fails, it automatically falls back to my rule-based engine. The header shows which mode is active — green for AI, yellow for fallback. Every analysis labels its method and confidence score. This transparency was really important to me.
+
+The fallback engine uses keyword scoring. It checks text against 15 noise keywords and 21 signal keywords, with signal words weighted double. It also penalizes excessive punctuation and caps lock. It's not as smart as GPT, but it handles the common cases surprisingly well.
+
+For testing, I wrote 14 tests — 5 happy path and 9 edge cases — all targeting the fallback engine since that's the most critical module. They cover things like empty strings, symbols-only input, very long text, unknown categories, and mixed noise-plus-signal text. All 14 pass in under a second.
+
+On the responsible AI side, a few things were important to me. The AI only advises — it never takes automated action. Noise alerts are dimmed, not deleted. Users always know how analysis was done. All data is synthetic. And the app works fully without any API key.
+
+The main tradeoffs I made were skipping database persistence, user auth, and real WebSocket connections to stay focused on the core safety and AI features within the time constraint. With more time I'd add PostgreSQL, user accounts, real-time updates, and a map view with geocoded pins.
+
+That's SafeSignal. Thanks for watching.

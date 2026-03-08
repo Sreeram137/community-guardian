@@ -1,10 +1,10 @@
-# 🛡️ Community Guardian — Design Document
+# 🛡️ SafeSignal — Design Document
 
 ---
 
 ## 1. 📌 Overview
 
-Community Guardian is a community safety platform that aggregates local threat alerts, uses AI to separate real threats from noise, and delivers calm, actionable information. Instead of overwhelming people with raw data, it filters, categorizes, and generates practical defense steps.
+SafeSignal is a community safety platform that aggregates local threat alerts, uses AI to separate real threats from noise, and delivers calm, actionable information. Instead of overwhelming people with raw data, it filters, categorizes, and generates practical defense steps.
 
 The UI is designed around a **cybersecurity operations center aesthetic** — dark theme, animated network visualization, real-time monitoring — making the experience feel professional and immersive.
 
@@ -13,7 +13,7 @@ The UI is designed around a **cybersecurity operations center aesthetic** — da
 ## 2. 🧠 Design Philosophy
 
 ### Empowerment over anxiety
-Most safety tools just dump threat data on you. Community Guardian curates it. The safety digest gives a calm summary. Defense checklists give specific steps. The tone throughout is reassuring, not alarming.
+Most safety tools just dump threat data on you. SafeSignal curates it. The safety digest gives a calm summary. Defense checklists give specific steps. The tone throughout is reassuring, not alarming.
 
 ### Always works
 If OpenAI is down or there's no API key, the app automatically switches to a rule-based fallback engine. No errors, no broken states. The user just sees a yellow badge instead of a green one.

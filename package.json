@@ -1,7 +1,7 @@
 {
-  "name": "community-guardian",
+  "name": "safe-signal",
   "version": "1.0.0",
-  "description": "Community Guardian - AI-Powered Community Safety & Digital Wellness Platform",
+  "description": "SafeSignal - AI-Powered Community Safety & Digital Wellness Platform",
   "private": true,
   "scripts": {
     "dev": "next dev",
