@@ -2,9 +2,6 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-// ================================================================
-// ANIMATED CYBER BACKGROUND
-// ================================================================
 
 function CyberBackground() {
     const canvasRef = useRef(null);
@@ -23,7 +20,6 @@ function CyberBackground() {
         resize();
         window.addEventListener('resize', resize);
 
-        // Create particles
         const PARTICLE_COUNT = 60;
         for (let i = 0; i < PARTICLE_COUNT; i++) {
             particles.push({
@@ -43,7 +39,6 @@ function CyberBackground() {
             frame++;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw connections
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
@@ -61,7 +56,6 @@ function CyberBackground() {
                 }
             }
 
-            // Draw and update particles
             particles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
@@ -71,20 +65,17 @@ function CyberBackground() {
                 const pulse = Math.sin(frame * p.pulseSpeed + p.pulseOffset) * 0.3 + 0.7;
                 const r = p.radius * pulse;
 
-                // Glow
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, r * 3, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(59, 130, 246, ${p.opacity * 0.15 * pulse})`;
                 ctx.fill();
 
-                // Core
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
                 ctx.fillStyle = `rgba(96, 165, 250, ${p.opacity * pulse})`;
                 ctx.fill();
             });
 
-            // Scanning line
             const scanY = (frame * 0.5) % canvas.height;
             const scanGrad = ctx.createLinearGradient(0, scanY - 30, 0, scanY + 30);
             scanGrad.addColorStop(0, 'rgba(59, 130, 246, 0)');
@@ -106,9 +97,6 @@ function CyberBackground() {
     return <canvas ref={canvasRef} className="cyber-bg-canvas" />;
 }
 
-// ================================================================
-// THREAT LEVEL METER
-// ================================================================
 
 function ThreatLevelMeter({ alerts }) {
     const criticalCount = alerts.filter(a => a.severity === 'critical').length;
@@ -153,9 +141,6 @@ function ThreatLevelMeter({ alerts }) {
     );
 }
 
-// ================================================================
-// LIVE ACTIVITY FEED
-// ================================================================
 
 const CYBER_EVENTS = [
     '🔍 Network scan detected from 192.168.1.x',
@@ -180,7 +165,6 @@ function LiveActivityFeed() {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        // Seed initial events
         const initial = Array.from({ length: 5 }, (_, i) => ({
             id: i,
             text: CYBER_EVENTS[Math.floor(Math.random() * CYBER_EVENTS.length)],
@@ -222,9 +206,6 @@ function LiveActivityFeed() {
     );
 }
 
-// ================================================================
-// UTILITY HELPERS
-// ================================================================
 
 const CATEGORIES = [
     { value: 'all', label: '🔍 All Categories' },
@@ -285,9 +266,6 @@ function timeAgo(timestamp) {
     return `${Math.floor(seconds / 86400)}d ago`;
 }
 
-// ================================================================
-// LOCATION SELECTOR COMPONENT
-// ================================================================
 
 function LocationSelector({ currentLocation, onLocationChange, locations }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -370,9 +348,6 @@ function LocationSelector({ currentLocation, onLocationChange, locations }) {
     );
 }
 
-// ================================================================
-// TOAST NOTIFICATION COMPONENT
-// ================================================================
 
 function ToastContainer({ toasts }) {
     return (
@@ -387,9 +362,6 @@ function ToastContainer({ toasts }) {
     );
 }
 
-// ================================================================
-// CREATE ALERT MODAL
-// ================================================================
 
 function CreateAlertModal({ isOpen, onClose, onSubmit }) {
     const [formData, setFormData] = useState({
@@ -415,7 +387,6 @@ function CreateAlertModal({ isOpen, onClose, onSubmit }) {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Client-side validation
         const validationErrors = [];
         if (formData.title.trim().length < 5) validationErrors.push('Title must be at least 5 characters');
         if (formData.description.trim().length < 10) validationErrors.push('Description must be at least 10 characters');
@@ -561,9 +532,6 @@ function CreateAlertModal({ isOpen, onClose, onSubmit }) {
     );
 }
 
-// ================================================================
-// ALERT CARD COMPONENT
-// ================================================================
 
 function AlertCard({ alert, onClick, isNoise }) {
     return (
@@ -615,9 +583,6 @@ function AlertCard({ alert, onClick, isNoise }) {
     );
 }
 
-// ================================================================
-// ALERT DETAIL VIEW
-// ================================================================
 
 function AlertDetail({ alert, onBack, onUpdate, aiStatus }) {
     const [analysis, setAnalysis] = useState(null);
@@ -885,9 +850,6 @@ function AlertDetail({ alert, onBack, onUpdate, aiStatus }) {
     );
 }
 
-// ================================================================
-// DIGEST VIEW
-// ================================================================
 
 function DigestView({ alerts, aiStatus }) {
     const [digest, setDigest] = useState(null);
@@ -1019,9 +981,6 @@ function DigestView({ alerts, aiStatus }) {
     );
 }
 
-// ================================================================
-// MAIN APP
-// ================================================================
 
 export default function Home() {
     const [alerts, setAlerts] = useState([]);
@@ -1038,7 +997,6 @@ export default function Home() {
     const [noiseResults, setNoiseResults] = useState({});
     const [userLocation, setUserLocation] = useState('');
 
-    // Extract unique locations from alerts for the dropdown
     const uniqueLocations = [...new Set(alerts.map(a => a.location).filter(Boolean))].sort();
 
     const addToast = useCallback((message, type = 'success') => {
@@ -1049,7 +1007,6 @@ export default function Home() {
         }, 4000);
     }, []);
 
-    // Fetch alerts
     const fetchAlerts = useCallback(async () => {
         try {
             const params = new URLSearchParams();
@@ -1066,7 +1023,6 @@ export default function Home() {
         setLoading(false);
     }, [categoryFilter, severityFilter, searchQuery, addToast]);
 
-    // Check AI status
     useEffect(() => {
         async function checkAI() {
             try {
@@ -1084,7 +1040,6 @@ export default function Home() {
         checkAI();
     }, []);
 
-    // Analyze noise for all alerts
     useEffect(() => {
         async function analyzeNoise() {
             const results = {};
@@ -1112,7 +1067,6 @@ export default function Home() {
         fetchAlerts();
     }, [fetchAlerts]);
 
-    // Create alert
     const handleCreateAlert = async (formData) => {
         try {
             const res = await fetch('/api/alerts', {
@@ -1134,7 +1088,6 @@ export default function Home() {
         }
     };
 
-    // Update alert
     const handleUpdateAlert = async (id, data) => {
         try {
             const res = await fetch(`/api/alerts/${id}`, {
@@ -1156,12 +1109,10 @@ export default function Home() {
         }
     };
 
-    // Filter displayed alerts
     let displayedAlerts = filterNoisy
         ? alerts.filter(a => !noiseResults[a.id])
         : alerts;
 
-    // Apply location filter
     if (userLocation) {
         displayedAlerts = displayedAlerts.filter(a =>
             a.location && a.location.toLowerCase().includes(userLocation.toLowerCase())

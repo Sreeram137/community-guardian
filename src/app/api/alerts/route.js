@@ -1,12 +1,7 @@
-/**
- * API Route: /api/alerts
- * Handles CRUD operations for community safety alerts
- */
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-// Load initial data from synthetic dataset
 function loadAlerts() {
     const dataPath = path.join(process.cwd(), 'data', 'synthetic_alerts.json');
     try {
@@ -18,7 +13,6 @@ function loadAlerts() {
     }
 }
 
-// In-memory store (resets on server restart — acceptable for prototype)
 let alertsStore = null;
 
 function getAlerts() {
@@ -28,7 +22,6 @@ function getAlerts() {
     return alertsStore;
 }
 
-// GET — Retrieve all alerts with optional filtering
 export async function GET(request) {
     try {
         const { searchParams } = new URL(request.url);
@@ -39,7 +32,6 @@ export async function GET(request) {
 
         let alerts = [...getAlerts()];
 
-        // Apply filters
         if (category && category !== 'all') {
             alerts = alerts.filter(a => a.category === category);
         }
@@ -62,7 +54,6 @@ export async function GET(request) {
             );
         }
 
-        // Sort by timestamp (newest first) and severity
         const severityOrder = { critical: 0, high: 1, medium: 2, low: 3, info: 4 };
         alerts.sort((a, b) => {
             const severityDiff = (severityOrder[a.severity] || 5) - (severityOrder[b.severity] || 5);
@@ -79,12 +70,10 @@ export async function GET(request) {
     }
 }
 
-// POST — Create a new alert
 export async function POST(request) {
     try {
         const body = await request.json();
 
-        // Input validation
         const errors = [];
         if (!body.title || body.title.trim().length < 5) {
             errors.push('Title must be at least 5 characters');

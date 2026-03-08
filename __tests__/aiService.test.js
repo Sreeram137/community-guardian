@@ -1,7 +1,3 @@
-/**
- * Tests for the AI Service (Rule-Based Fallback Engine)
- * Tests: Happy Path + Edge Case
- */
 const {
     detectNoiseRuleBased,
     categorizeFallback,
@@ -12,9 +8,6 @@ const {
     getSeverityWeight
 } = require('../src/lib/aiService');
 
-// ============================================================
-// TEST 1: HAPPY PATH — Noise detection correctly identifies noise vs signal
-// ============================================================
 describe('Noise Detection — Happy Path', () => {
     test('should identify a clear actionable alert as NOT noise', () => {
         const text = 'Police advisory: multiple vehicle break-ins reported near Maple Park. Thieves targeting electronics left in vehicles. Increased patrols in the area.';
@@ -65,7 +58,6 @@ describe('Noise Detection — Happy Path', () => {
         expect(result.checklist).toBeInstanceOf(Array);
         expect(result.checklist.length).toBe(5);
         expect(result.method).toBe('rule-based');
-        // Checklist items should be strings
         result.checklist.forEach(item => {
             expect(typeof item).toBe('string');
             expect(item.length).toBeGreaterThan(0);
@@ -73,9 +65,6 @@ describe('Noise Detection — Happy Path', () => {
     });
 });
 
-// ============================================================
-// TEST 2: EDGE CASE — Boundary conditions and unusual inputs
-// ============================================================
 describe('AI Service — Edge Cases', () => {
     test('should handle empty string without crashing', () => {
         const noiseResult = detectNoiseRuleBased('');
@@ -102,17 +91,17 @@ describe('AI Service — Edge Cases', () => {
 
         const noiseResult = detectNoiseRuleBased(longText);
         expect(noiseResult).toHaveProperty('isNoise');
-        expect(noiseResult.isNoise).toBe(false); // Contains "phishing"
+        expect(noiseResult.isNoise).toBe(false);
 
         const sumResult = summarizeFallback(longText);
-        expect(sumResult.summary.length).toBeLessThanOrEqual(250); // Should be truncated
+        expect(sumResult.summary.length).toBeLessThanOrEqual(250);
     });
 
     test('should handle unknown category gracefully', () => {
         const result = getDefenseChecklistFallback('unknown_category_xyz');
 
         expect(result.checklist).toBeInstanceOf(Array);
-        expect(result.checklist.length).toBeGreaterThan(0); // Falls back to 'general'
+        expect(result.checklist.length).toBeGreaterThan(0);
         expect(result.method).toBe('rule-based');
     });
 
@@ -127,12 +116,10 @@ describe('AI Service — Edge Cases', () => {
     });
 
     test('should handle mixed signal/noise text correctly', () => {
-        // This text has BOTH noise and signal keywords
         const text = 'OMG this is so annoying!!! But seriously, there was a phishing scam reported at the local bank. A suspicious breach of the system was discovered.';
 
         const result = detectNoiseRuleBased(text);
 
-        // Signal keywords (phishing, scam, breach) should outweigh noise
         expect(result.isNoise).toBe(false);
         expect(result.signalScore).toBeGreaterThan(0);
         expect(result.noiseScore).toBeGreaterThan(0);

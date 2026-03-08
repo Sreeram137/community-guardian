@@ -1,13 +1,3 @@
-/**
- * AI Service for Community Guardian
- * Provides AI-powered analysis with rule-based fallback
- */
-
-// ============================================================
-// RULE-BASED FALLBACK ENGINE
-// Used when AI (OpenAI) is unavailable or returns errors
-// ============================================================
-
 const NOISE_KEYWORDS = [
     'omg', 'lol', 'ugh', 'annoying', 'ridiculous', 'terrible',
     'moving out', 'hate', 'worst', 'can\'t believe', 'so tired',
@@ -91,33 +81,26 @@ const DEFENSE_CHECKLISTS = {
     ]
 };
 
-/**
- * Rule-based noise detection (fallback for AI)
- */
 export function detectNoiseRuleBased(text) {
     const lowerText = text.toLowerCase();
 
     let noiseScore = 0;
     let signalScore = 0;
 
-    // Check for noise indicators
     NOISE_KEYWORDS.forEach(keyword => {
         if (lowerText.includes(keyword)) noiseScore += 1;
     });
 
-    // Check for actionable indicators
     ACTIONABLE_KEYWORDS.forEach(keyword => {
         if (lowerText.includes(keyword)) signalScore += 2;
     });
 
-    // Excessive punctuation = noise
     const exclamationCount = (text.match(/!/g) || []).length;
     const capsRatio = (text.match(/[A-Z]/g) || []).length / text.length;
 
     if (exclamationCount > 3) noiseScore += 2;
     if (capsRatio > 0.3 && text.length > 20) noiseScore += 1;
 
-    // Very short texts without keywords are likely noise
     if (text.length < 50 && signalScore === 0) noiseScore += 1;
 
     const isNoise = noiseScore > signalScore;
@@ -131,9 +114,6 @@ export function detectNoiseRuleBased(text) {
     };
 }
 
-/**
- * Rule-based category detection (fallback for AI)
- */
 export function categorizeFallback(text) {
     const lowerText = text.toLowerCase();
     let bestCategory = 'general';
@@ -157,11 +137,7 @@ export function categorizeFallback(text) {
     };
 }
 
-/**
- * Rule-based summarization (fallback for AI)
- */
 export function summarizeFallback(text) {
-    // Simple extractive summary - take the first two sentences
     const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
     const summary = sentences.slice(0, 2).join(' ').trim();
 
@@ -171,9 +147,6 @@ export function summarizeFallback(text) {
     };
 }
 
-/**
- * Rule-based defense checklist (fallback for AI)
- */
 export function getDefenseChecklistFallback(category) {
     const checklist = DEFENSE_CHECKLISTS[category] || DEFENSE_CHECKLISTS.general;
     return {
@@ -182,9 +155,6 @@ export function getDefenseChecklistFallback(category) {
     };
 }
 
-/**
- * Generate a safety digest from alerts using rules
- */
 export function generateDigestFallback(alerts) {
     const verified = alerts.filter(a => a.status === 'verified');
     const actionable = verified.filter(a => a.actionable);

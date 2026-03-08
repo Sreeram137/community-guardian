@@ -1,6 +1,4 @@
-/* ===== CSS RESET & VARIABLES ===== */
 :root {
-  /* Color Palette - Cybersecurity-inspired dark theme */
   --bg-primary: #0a0e1a;
   --bg-secondary: #111827;
   --bg-card: #1a2035;
@@ -8,20 +6,17 @@
   --bg-glass: rgba(26, 32, 53, 0.8);
   --bg-input: #0f1629;
 
-  /* Accent Colors */
   --accent-primary: #3b82f6;
   --accent-primary-glow: rgba(59, 130, 246, 0.3);
   --accent-secondary: #8b5cf6;
   --accent-gradient: linear-gradient(135deg, #3b82f6, #8b5cf6);
   --accent-gradient-hover: linear-gradient(135deg, #60a5fa, #a78bfa);
 
-  /* Text Colors */
   --text-primary: #f1f5f9;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   --text-accent: #60a5fa;
 
-  /* Status Colors */
   --color-critical: #ef4444;
   --color-critical-bg: rgba(239, 68, 68, 0.12);
   --color-critical-border: rgba(239, 68, 68, 0.3);
@@ -38,7 +33,6 @@
   --color-info-bg: rgba(6, 182, 212, 0.12);
   --color-info-border: rgba(6, 182, 212, 0.3);
 
-  /* Category Colors */
   --cat-cyber: #8b5cf6;
   --cat-cyber-bg: rgba(139, 92, 246, 0.12);
   --cat-scam: #ec4899;
@@ -56,29 +50,24 @@
   --cat-noise: #64748b;
   --cat-noise-bg: rgba(100, 116, 139, 0.12);
 
-  /* Borders */
   --border-color: rgba(148, 163, 184, 0.1);
   --border-focus: rgba(59, 130, 246, 0.5);
 
-  /* Shadows */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
   --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.15);
 
-  /* Spacing */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  /* Transitions */
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
   --transition-slow: 400ms ease;
 }
 
-/* ===== GLOBAL RESET ===== */
 *,
 *::before,
 *::after {
@@ -102,7 +91,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Animated background gradient */
 body::before {
   content: '';
   position: fixed;
@@ -118,7 +106,6 @@ body::before {
   z-index: 0;
 }
 
-/* Cyber grid overlay */
 body::after {
   content: '';
   position: fixed;
@@ -134,7 +121,6 @@ body::after {
   z-index: 0;
 }
 
-/* Canvas background */
 .cyber-bg-canvas {
   position: fixed;
   top: 0;
@@ -160,7 +146,6 @@ a:hover {
   color: var(--accent-primary);
 }
 
-/* ===== SCROLLBAR STYLING ===== */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -179,14 +164,12 @@ a:hover {
   background: var(--text-secondary);
 }
 
-/* ===== LAYOUT ===== */
 .app-container {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
-/* ===== HEADER ===== */
 .header {
   position: sticky;
   top: 0;
@@ -197,7 +180,6 @@ a:hover {
   padding: 16px 0;
 }
 
-/* Header scan line */
 .header::after {
   content: '';
   position: absolute;
@@ -326,7 +308,6 @@ a:hover {
   }
 }
 
-/* ===== NAVIGATION TABS ===== */
 .nav-tabs {
   display: flex;
   gap: 4px;
@@ -365,7 +346,6 @@ a:hover {
   box-shadow: var(--shadow-glow);
 }
 
-/* ===== STATS GRID ===== */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -454,7 +434,6 @@ a:hover {
   z-index: 1;
 }
 
-/* ===== FILTER BAR ===== */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
@@ -525,7 +504,6 @@ a:hover {
   color: var(--text-primary);
 }
 
-/* ===== ALERT CARDS ===== */
 .alerts-list {
   display: flex;
   flex-direction: column;
@@ -579,7 +557,6 @@ a:hover {
   box-shadow: var(--shadow-md), 0 0 30px rgba(59, 130, 246, 0.08);
 }
 
-/* Holographic top-edge on hover */
 .alert-card:hover::after {
   content: '';
   position: absolute;
@@ -752,7 +729,6 @@ a:hover {
   color: var(--text-muted);
 }
 
-/* ===== BUTTONS ===== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -807,7 +783,6 @@ a:hover {
   font-size: 0.8rem;
 }
 
-/* ===== MODAL ===== */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -903,7 +878,6 @@ a:hover {
   border-top: 1px solid var(--border-color);
 }
 
-/* ===== FORMS ===== */
 .form-group {
   margin-bottom: 16px;
 }
@@ -958,7 +932,6 @@ a:hover {
   background: var(--bg-secondary);
 }
 
-/* ===== AI ANALYSIS PANEL ===== */
 .ai-analysis {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -1035,7 +1008,6 @@ a:hover {
   }
 }
 
-/* ===== CHECKLIST ===== */
 .checklist {
   list-style: none;
   padding: 0;
@@ -1069,7 +1041,6 @@ a:hover {
   flex-shrink: 0;
 }
 
-/* ===== DIGEST PANEL ===== */
 .digest-section {
   margin-bottom: 24px;
 }
@@ -1094,7 +1065,6 @@ a:hover {
   font-size: 0.9rem;
 }
 
-/* ===== EMPTY STATE ===== */
 .empty-state {
   text-align: center;
   padding: 60px 20px;
@@ -1120,7 +1090,6 @@ a:hover {
   margin: 0 auto;
 }
 
-/* ===== ALERT DETAIL VIEW ===== */
 .alert-detail {
   padding: 32px 0;
 }
@@ -1210,7 +1179,6 @@ a:hover {
   font-weight: 500;
 }
 
-/* ===== NOISE FILTER TOGGLE ===== */
 .noise-toggle {
   display: flex;
   align-items: center;
@@ -1265,7 +1233,6 @@ a:hover {
   transform: translateX(16px);
 }
 
-/* ===== TOAST NOTIFICATION ===== */
 .toast-container {
   position: fixed;
   bottom: 24px;
@@ -1315,7 +1282,6 @@ a:hover {
   }
 }
 
-/* ===== PAGE SECTIONS ===== */
 .page-header {
   display: flex;
   align-items: center;
@@ -1336,7 +1302,6 @@ a:hover {
   margin: 24px 0;
 }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .header-inner {
     flex-wrap: wrap;
@@ -1393,7 +1358,6 @@ a:hover {
   }
 }
 
-/* ===== LOCATION SELECTOR ===== */
 .location-selector {
   position: relative;
 }
@@ -1579,7 +1543,6 @@ a:hover {
   font-size: 1rem;
 }
 
-/* ===== THREAT LEVEL METER ===== */
 .threat-meter {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -1683,7 +1646,6 @@ a:hover {
   color: var(--text-secondary);
 }
 
-/* ===== LIVE ACTIVITY FEED ===== */
 .live-feed {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -1802,7 +1764,6 @@ a:hover {
   color: var(--text-secondary);
 }
 
-/* ===== ENHANCED NAV TABS ===== */
 .nav-tabs {
   position: relative;
 }
@@ -1821,7 +1782,6 @@ a:hover {
   pointer-events: none;
 }
 
-/* ===== RESPONSIVE ADJUSTMENTS ===== */
 @media (max-width: 768px) {
   .threat-meter-detail {
     flex-wrap: wrap;

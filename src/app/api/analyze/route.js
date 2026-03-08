@@ -1,7 +1,3 @@
-/**
- * API Route: /api/analyze
- * AI-powered alert analysis with rule-based fallback
- */
 import { NextResponse } from 'next/server';
 import {
     detectNoiseRuleBased,
@@ -12,12 +8,10 @@ import {
     formatCategoryName
 } from '../../../lib/aiService';
 
-// Check if OpenAI API key is available
 function hasOpenAIKey() {
     return !!process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your_openai_api_key_here';
 }
 
-// Call OpenAI API
 async function callOpenAI(messages, maxTokens = 500) {
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
@@ -53,13 +47,11 @@ export async function POST(request) {
             );
         }
 
-        // Determine if AI is available
         const aiAvailable = hasOpenAIKey();
         let result;
 
         switch (action) {
             case 'analyze': {
-                // Noise detection + categorization + summary
                 if (!text) {
                     return NextResponse.json(
                         { error: 'Text parameter is required for analysis' },

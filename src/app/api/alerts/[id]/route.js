@@ -1,7 +1,3 @@
-/**
- * API Route: /api/alerts/[id]
- * Handles individual alert operations (GET, PUT, DELETE)
- */
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
@@ -24,7 +20,6 @@ function getAlerts() {
     return alertsStore;
 }
 
-// GET — Retrieve single alert
 export async function GET(request, { params }) {
     try {
         const { id } = await params;
@@ -47,7 +42,6 @@ export async function GET(request, { params }) {
     }
 }
 
-// PUT — Update an alert
 export async function PUT(request, { params }) {
     try {
         const { id } = await params;
@@ -62,7 +56,6 @@ export async function PUT(request, { params }) {
             );
         }
 
-        // Validation
         const errors = [];
         if (body.title !== undefined && body.title.trim().length < 5) {
             errors.push('Title must be at least 5 characters');
@@ -75,11 +68,10 @@ export async function PUT(request, { params }) {
             return NextResponse.json({ errors }, { status: 400 });
         }
 
-        // Merge updates
         alerts[index] = {
             ...alerts[index],
             ...body,
-            id: alerts[index].id, // prevent ID change
+            id: alerts[index].id,
             updatedAt: new Date().toISOString()
         };
 
@@ -92,7 +84,6 @@ export async function PUT(request, { params }) {
     }
 }
 
-// DELETE — Remove an alert
 export async function DELETE(request, { params }) {
     try {
         const { id } = await params;
